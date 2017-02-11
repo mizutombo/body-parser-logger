@@ -30,9 +30,11 @@ describe('tests body parser middleware :', () => {
 		};
 		let cat = {};
 		parser(req, null, next);
-		req.emit('data' );	
+		req.emit('data', cat );
 		req.emit('end');
-		console.log('body ', req.body);
+
+		console.log('body ', (req.body.length));
+
 		assert.deepEqual(req.body, null);
 		done();
 	});
