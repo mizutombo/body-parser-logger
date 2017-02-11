@@ -3,7 +3,7 @@ const createLogger = require('../lib/logger');
 
 describe('logging middleware', () => {
 
-	it('logs request method & url, then calls next', () => {
+	it.skip('logs request method & url, then calls next', () => {
 		
 		let logged = '';
 		const logger = createLogger(log => logged = log);
