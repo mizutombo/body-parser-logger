@@ -4,12 +4,12 @@ const EventEmitter = require('events');
 
 describe('tests body parser middleware :', () => {
 
-	it.skip('reads request stream and returns body, then calls "next()"', done => {
+	it('reads request stream and returns body, then calls "next()"', done => {
 
 		const parser = bodyParser();
 		const req = new EventEmitter();
 		const next = () => {
-			done();
+			// done();
 		};
 		let cat = {
 			"name": "mocha"
