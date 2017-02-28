@@ -8,36 +8,32 @@ describe('tests body parser middleware :', () => {
 
 		const parser = bodyParser();
 		const req = new EventEmitter();
-		const next = () => {};
-		// let cat = {
-		// 	name: mocha
-		// };
-		let body = '';
-		let cat = 'mocha';
+		const body = {};
+		let cat = {
+			cat: 'ocelot'
+		};
+		const next = () => {
+		  assert.deepEqual(req.body, cat);
+		};
 		parser(req, null, next);
 		req.emit('data', JSON.stringify(cat));	
 		req.emit('end');
-		// assert.deepEqual(req.body, cat);
-		assert.deepEqual(body, cat);
-		next();
+	
 	});
 
 	it('if no body, then calls "next()"', () => {
 
 		const parser = bodyParser();
 		const req = new EventEmitter();
-		const next = () => {
-			// done();
-		};
+		let body = '';
 		let cat = '';
+		const next = () => {
+			assert.deepEqual(req.body, '');
+		};
 		parser(req, null, next);
-		req.emit('data', cat );
+		req.emit('data', JSON.stringify(cat));
 		req.emit('end');
 
-		console.log('body ', (req.body.length));
-
-		assert.deepEqual(req.body, null);
-		next();
 	});
 
 });
