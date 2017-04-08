@@ -1,25 +1,26 @@
 {
-    "parserOptions": {
-		"ecmaVersion": 6,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"modules": true,
-			"impliedStrict": true
-		}
-	},
     "env": {
-        "node": true,
-        "mocha": true,
-        "es6": true
+        "es6": true,
+        "node": true
     },
     "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
     "rules": {
-        "no-console": "off",
-        "no-mixed-spaces-and-tabs": "off",
-        "no-unused-vars": 1,
         "indent": [
             "error",
-            "tab"
+            4
+        ],
+        "no-console": [
+            "error",
+            {
+                "allow": [
+                    "warn",
+                    "error",
+                    "log"
+                ]
+            }
         ],
         "linebreak-style": [
             "error",
