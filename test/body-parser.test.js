@@ -1,42 +1,39 @@
 const assert = require('chai').assert;
 const bodyParser = require('../lib/body-parser');
 const EventEmitter = require('events');
+req = new EventEmitter();
+req.emit('data', JSON.stringify('data'));
+req.emit('end');
 
-describe('tests body parser middleware :', () => {
+describe('tests body parser middleware ', () => {
 
 	it('reads request stream and returns body, then calls "next()"', done => {
 
-		const parser = bodyParser();
-		const req = new EventEmitter();
-		const next = () => {
-			// done();
-		};
-		let cat = {
-			"name": "mocha"
-		};
-		parser(req, null, next);
-		req.emit('data', JSON.stringify(cat));	
-		req.emit('end');
-		assert.deepEqual(req.body, cat);
-		done();
-	});
-
-	it('if no body, then calls "next()"', done => {
-
-		const parser = bodyParser();
-		const req = new EventEmitter();
+		let parser = bodyParser();
+		//const req = new EventEmitter();
 		const next = () => {
 			done();
 		};
-		let cat = {};
-		parser(req, null, next);
-		req.emit('data', cat );
+		let cat = {
+			'name': 'mocha'
+		};
+		parser(req, null, next());
+		req.emit('data', JSON.stringify(cat));
 		req.emit('end');
+		assert.deepEqual(req.body, cat);
+		next();
+	});
 
-		console.log('body ', (req.body.length));
+	it('no body here', () => {
 
-		assert.deepEqual(req.body, null);
-		done();
+		let parser = bodyParser();
+		const req = new EventEmitter();
+		req.body = null;
+		let next = () => {
+			assert.deepEqual(req.body, null);
+			//done();
+		};
+		next();
 	});
 
 });
